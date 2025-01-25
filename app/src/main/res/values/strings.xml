@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">stfu</string>
+    <string name="search">Search App</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="selectApps">Select Apps</string>
+    <string name="start_label">Stfu Me</string>
+    <string name="status">Status</string>
+
 </resources>
