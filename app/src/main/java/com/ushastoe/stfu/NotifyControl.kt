@@ -1,14 +1,14 @@
 package com.ushastoe.stfu
 
-import android.content.ContentValues
+import android.app.Notification
+import android.app.PendingIntent
 import android.content.Context
-import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
+
 
 class NotifyControl : NotificationListenerService() {
     private val PREFERENCES_NAME = "NotifyControlPrefs"
@@ -16,13 +16,18 @@ class NotifyControl : NotificationListenerService() {
     private val ENABLE_FUNC = "Enable"
 
     override fun onNotificationPosted(sbn: StatusBarNotification) {
+        val notification = sbn.notification
         val packageName = sbn.packageName
+        val postTime = sbn.postTime
+        val title = notification.extras.getString(Notification.EXTRA_TITLE)
+        val notificationText = notification.extras.getString(Notification.EXTRA_TEXT)
 
         if (isPackageInList(packageName) && getEnabledFunc()) {
             whenCancelled()
             cancelNotification(sbn.key)
         }
     }
+
     private fun whenCancelled() {
         vibrateDevice(this, 500)
     }

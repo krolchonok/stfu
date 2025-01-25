@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.Settings
 import android.widget.Button
-import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -168,29 +167,6 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences.edit().putString(PACKAGES_KEY, packagesString).apply()
     }
 
-    fun addPackageToPreferences(context: Context, packageName: String) {
-        val sharedPreferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
-        val savedPackages = sharedPreferences.getString(PACKAGES_KEY, "") ?: ""
-        val packageList = savedPackages.split(";").filter { it.isNotEmpty() }.toMutableList()
-
-        if (!packageList.contains(packageName)) {
-            packageList.add(packageName)
-            val updatedPackages = packageList.joinToString(";")
-            sharedPreferences.edit().putString(PACKAGES_KEY, updatedPackages).apply()
-        }
-    }
-
-    fun removePackageFromPreferences(context: Context, packageName: String) {
-        val sharedPreferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
-        val savedPackages = sharedPreferences.getString(PACKAGES_KEY, "") ?: ""
-        val packageList = savedPackages.split(";").filter { it.isNotEmpty() }.toMutableList()
-
-        if (packageList.contains(packageName)) {
-            packageList.remove(packageName)
-            val updatedPackages = packageList.joinToString(";")
-            sharedPreferences.edit().putString(PACKAGES_KEY, updatedPackages).apply()
-        }
-    }
     private fun getEnabledFunc(): Boolean {
         val sharedPreferences = getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE)
         val enabled = sharedPreferences.getBoolean(ENABLE_FUNC, false)
